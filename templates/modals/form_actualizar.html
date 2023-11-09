@@ -1,0 +1,41 @@
+<div class="modal fade" id="modalUpdate_{{ alumno.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel">{{ alumno.nombre_alumno }} {{ alumno.apellido_alumno }}</h1>
+                <button type="button" class="btn-close bg-danger xModal{{ alumno.id }}" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="">
+                <input type="hidden" id="hidde_csrf_token_update" value="{{ csrf_token }}">
+                <input type="hidden" id="url_relative_actualizar" value="{% url 'actualizar' %}">
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" id="update_id_{{ alumno.id }}" value="">
+
+                    <div class="mb-3">
+                        <label for="update_nombre_{{ alumno.id }}" class="form-label fw-bold">Nombre:</label>
+                        <input type="text" class="form-control" id="update_nombre_{{ alumno.id }}" value="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="update_apellido_{{ alumno.id }}" class="form-label fw-bold">Apellidos:</label>
+                        <input type="text" class="form-control" id="update_apellido_{{ alumno.id }}" value="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="update_telefono_{{ alumno.id }}" class="form-label fw-bold">Teléfono/Celular:</label>
+                        <input type="email" class="form-control field_only_numbers" id="update_telefono_{{ alumno.id }}" value="" minlength="10" maxlength="10">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="update_email_{{ alumno.id }}" class="form-label fw-bold">E-mail:</label>
+                        <input type="email" class="form-control" id="update_email_{{ alumno.id }}" value="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger closeModalUpdate_{{ alumno.id }}" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="updateData_{{ alumno.id }}" type="button" class="btn btn-success">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

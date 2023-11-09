@@ -1,0 +1,68 @@
+{% load static %}
+
+<!-- Modal para Registrar un nuevo Alumno-->
+<div class="modal fade" id="modalFormAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Datos del Alumno</h1>
+                <button type="button" class="btn-close bg-danger close_modal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form action="">
+                <input type="hidden" id="hidde_csrf_token" value="{{ csrf_token }}">
+                <input type="hidden" id="url_relative_guardar" value="{% url 'guardar' %}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombre_alumno" class="form-label fw-bold">Nombre:</label>
+                        <input type="text" class="form-control form-control-alumno" id="nombre_alumno">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="apellido_alumno" class="form-label fw-bold">Apellidos:</label>
+                        <input type="text" class="form-control form-control-alumno" id="apellido_alumno">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefono_alumno" class="form-label fw-bold">Tel/Cel:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control form-control-alumno field_only_numbers"
+                                   id="telefono_alumno" minlength="10" maxlength="10" placeholder="" aria-label=""
+                                   aria-describedby="verificar_telefono">
+                            <button class="btn btn-info" type="button" id="verificar_telefono">Verificar</button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email_alumno" class="form-label fw-bold">E-mail:</label>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control form-control-alumno" id="email_alumno"
+                                   placeholder="" aria-label="" aria-describedby="verificar_email">
+                            <button class="btn btn-info" type="button" id="verificar_email">Verificar</button>
+                        </div>
+                    </div>
+
+{#                    <div class="mb-3">#}
+{#                        <label class="form-label fw-bold">Materias:</label>#}
+{#                        <div class="row justify-content-start">#}
+{#                            {% for materia in materias %}#}
+{#                                <div class="col-6">#}
+{#                                    <div class="form-check">#}
+{#                                        <input class="form-check-input checkbox-materia" type="checkbox" value="{{ materia.nombre_materia }}"#}
+{#                                               id="materia-{{ materia.id }}" name="materia-{{ materia.id }}">#}
+{#                                        <label class="form-check-label" for="materia-{{ materia.id }}">{{ materia.nombre_materia }}.</label>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger close_modal" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success guardar_datos">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
