@@ -27,19 +27,24 @@
                     <div class="mb-3">
                         <label for="telefono_alumno" class="form-label fw-bold">Tel/Cel:</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control form-control-alumno field_only_numbers"
-                                   id="telefono_alumno" minlength="10" maxlength="10" placeholder="" aria-label=""
-                                   aria-describedby="verificar_telefono">
-                            <button class="btn btn-info" type="button" id="verificar_telefono">Verificar</button>
+                            <input id="telefono_alumno" class="form-control form-control-alumno field_only_numbers"
+                                   type="text" minlength="10" maxlength="10" placeholder="" aria-label="" aria-describedby="verificar_telefono">
+                            <input type="hidden" id="urlRelativeVerifyPhone" value="{% url 'phone_verify' %}">
+                            <button class="btn btn-info phone_verify" type="button" title="Consulta si el Teléfono no está registrado">
+                                <i class="bi bi-view-list"></i>
+                            </button>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="email_alumno" class="form-label fw-bold">E-mail:</label>
                         <div class="input-group mb-3">
-                            <input type="email" class="form-control form-control-alumno" id="email_alumno"
+                            <input id="email_alumno" type="email" class="form-control form-control-alumno"
                                    placeholder="" aria-label="" aria-describedby="verificar_email">
-                            <button class="btn btn-info" type="button" id="verificar_email">Verificar</button>
+                            <input type="hidden" id="urlRelativeVerifyEmail" value="{% url 'email_verify' %}">
+                            <button class="btn btn-info email_verify" type="button" title="Consulta si el E-mail no está registrado">
+                                <i class="bi bi-view-list"></i>
+                            </button>
                         </div>
                     </div>
 

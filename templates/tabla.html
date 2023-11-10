@@ -1,35 +1,43 @@
-<h5 class="mt-3 mb-3">Consulta de alumnos registrados con las materias que tienen asignadas:</h5>
-<table class="table tabla_alumno">
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre(s)</th>
-        <th scope="col">Apellidos</th>
-        <th scope="col">Teléfono</th>
-        <th scope="col">E-mail</th>
-        <th scope="col">Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for alumno in alumnos %}
+{% if not alumnos %}
+    <h3 class="mt-3 mb-3 text-center">No hay Alumnos registrados</h3>
+{% else %}
+    <h5 class="mt-3 mb-3">Consulta de alumnos registrados en esta tabla:</h5>
+    <table class="table tabla_alumno">
+        <thead>
         <tr>
-            <th id="show_{{ alumno.id }}" class="align-middle" scope="row">{{ alumno.id }}</th>
-            <td id="show_nombre_{{ alumno.id }}" class="align-middle show_nombre">{{ alumno.nombre_alumno }}</td>
-            <td id="show_apellido_{{ alumno.id }}" class="align-middle show_apellido">{{ alumno.apellido_alumno }}</td>
-            <td id="show_telefono_{{ alumno.id }}" class="align-middle show_telefono">{{ alumno.telefono_alumno }}</td>
-            <td id="show_email_{{ alumno.id }}" class="align-middle show_email">{{ alumno.email_alumno }}</td>
-
-            <td id="" class="align-middle">
-                <button type="button" class="btn btn-info show_modal_update" data-bs-toggle="modal"
-                        data-bs-target="#modalUpdate_{{ alumno.id }}" title="Actualizar {{ alumno.id }}"
-                        id="update_{{ alumno.id }}"><i class="bi bi-pencil-square"></i></button>
-                <button type="button" class="btn btn-danger delete_data" id="delete_{{ alumno.id }}"
-                        title="Eliminar {{ alumno.id }}"><i class="bi bi-trash"></i></button>
-            </td>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre(s)</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Acciones</th>
         </tr>
+        </thead>
+        <tbody>
+        {% for alumno in alumnos %}
+            <tr>
+                <th id="show_{{ alumno.id }}" class="align-middle" scope="row">{{ alumno.id }}</th>
+                <td id="show_nombre_{{ alumno.id }}" class="align-middle show_nombre">{{ alumno.nombre_alumno }}</td>
+                <td id="show_apellido_{{ alumno.id }}"
+                    class="align-middle show_apellido">{{ alumno.apellido_alumno }}</td>
+                <td id="show_telefono_{{ alumno.id }}"
+                    class="align-middle show_telefono">{{ alumno.telefono_alumno }}</td>
+                <td id="show_email_{{ alumno.id }}" class="align-middle show_email">{{ alumno.email_alumno }}</td>
 
-        <!-- Modal para Actualizar datos del Alumno-->
-        {% include 'modals/form_actualizar.html' %}
-    {% endfor %}
-    </tbody>
-</table>
+                <td id="" class="align-middle">
+                    <button type="button" class="btn btn-info show_modal_update" data-bs-toggle="modal"
+                            data-bs-target="#modalUpdate_{{ alumno.id }}" title="Actualizar {{ alumno.id }}"
+                            id="update_{{ alumno.id }}"><i class="bi bi-pencil-square"></i></button>
+                    <button type="button" class="btn btn-danger delete_data" id="delete_{{ alumno.id }}"
+                            title="Eliminar {{ alumno.id }}"><i class="bi bi-trash"></i></button>
+                    <input type="hidden" id="hidde_csrf_token_delete" value="{{ csrf_token }}">
+                    <input type="hidden" id="url_relative_eliminar" value="{% url 'eliminar' %}">
+                </td>
+            </tr>
+
+            <!-- Modal para Actualizar datos del Alumno-->
+            {% include 'modals/form_actualizar.html' %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

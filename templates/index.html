@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container">
         <h1 class="mt-4 text-center fw-bold fst-italic">{{ h1 }}</h1>
-        <div class="mt-5 text-center">
+        <div class="mt-4 text-center">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFormAlumno">
                 Nuevo Alumno</button>
         </div>
@@ -24,4 +24,7 @@
     <script src="{% static 'js/create_object.js' %}"></script>
     <script src="{% static 'js/update_object.js' %}"></script>
     <script src="{% static 'js/delete_object.js' %}"></script>
+
+    <script src="{% static 'js/verify_data/verify_phone.js' %}"></script>
+    <script src="{% static 'js/verify_data/verify_email.js' %}"></script>
 {% endblock %}

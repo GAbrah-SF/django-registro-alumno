@@ -75,16 +75,16 @@ $(document).ready(function () {
                         }, 1000)
                     )
                 },
-                error: function (error) {
+                error: function (xhr, status, error) {
                     swal.fire({
                         position: 'center',
-                        icon: error.responseJSON.error,
+                        icon: xhr.responseJSON.icon,
                         background: "#000",
-                        title: "Error al actualizar el alumno: " + xhr.status + " - " + error,
+                        title: xhr.responseJSON.error,
                         showConfirmButton: false,
                         timer: 2500
                     })
-                    console.log(error.responseJSON.error)
+                    // console.log(xhr.responseJSON.error)
                 }
             })
         })

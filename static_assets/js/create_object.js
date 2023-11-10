@@ -3,7 +3,6 @@ $(document).ready(function () {
     let hidde_csrf_token = $("#hidde_csrf_token").val()
 
     $(".guardar_datos").on("click", function () {
-
         let data = {
             "nombre_alumno": $("#nombre_alumno").val(),
             "apellido_alumno": $("#apellido_alumno").val(),
@@ -11,7 +10,6 @@ $(document).ready(function () {
             "email_alumno": $("#email_alumno").val(),
             "csrfmiddlewaretoken": hidde_csrf_token,
         }
-
         $.ajax({
             url: url_relative_guardar,
             type: "POST",
@@ -19,27 +17,30 @@ $(document).ready(function () {
             success: function (success) {
                 swal.fire({
                     position: 'center',
-                    icon: (success.icon),
+                    icon: success.icon,
                     background: "#000",
-                    title: (success.message),
+                    title: success.message,
                     showConfirmButton: false,
                     timer: 2500
                 }).then(
                     setTimeout('document.location.reload()', 1000)
                 )
             },
-            error: function (error) {
+            error: function (xhr, status, error) {
                 swal.fire({
                     position: 'center',
-                    icon: error.responseJSON.icon,
+                    icon: xhr.responseJSON.icon,
                     background: "#000",
-                    title: (error.responseJSON.error),
+                    title: xhr.responseJSON.error,
                     showConfirmButton: false,
                     timer: 2500
                 })
                 console.log(error.responseJSON.error)
             }
         })
+    })
 
+    $(".close_modal").on("click", function () {
+        $(".form-control-alumno").val("")
     })
 })

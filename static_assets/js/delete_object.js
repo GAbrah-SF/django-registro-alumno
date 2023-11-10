@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    let id_delete = [], id_show_nombre = [], id_show_apellido = [], id_show_telefono = [], id_show_email = []
+    let id_delete = [], id_show_nombre = [], id_show_apellido = []
+    let hidde_csrf_token_delete = $("#hidde_csrf_token_delete").val()
+    let url_relative_eliminar = $("#url_relative_eliminar").val()
 
     $('.delete_data').each(function () {
         id_delete.push($(this).attr('id'))
@@ -37,13 +39,13 @@ $(document).ready(function () {
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: "/api/eliminar/",
+                        url: url_relative_eliminar,
                         type: 'POST',
-                        data: `id = ${id}`,
+                        data: {"id": id, "csrfmiddlewaretoken": hidde_csrf_token_delete},
                         success: function (response) {
                             swal.fire({
                                 position: 'center',
-                                icon: 'success',
+                                icon: response.icon,
                                 background: "#000",
                                 title: response.message,
                                 showConfirmButton: false,
@@ -54,12 +56,12 @@ $(document).ready(function () {
                                 }, 2000) // 2000 milisegundos (2 segundos)
                             )
                         },
-                        error: function (error) {
+                        error: function (xhr, status, error) {
                             swal.fire({
                                 position: 'center',
-                                icon: 'error',
+                                icon: xhr.responseJSON.icon,
                                 background: "#000",
-                                title: error.responseJSON.error,
+                                title: xhr.responseJSON.error,
                                 showConfirmButton: false,
                                 timer: 2500
                             })

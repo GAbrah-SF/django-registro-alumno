@@ -1,10 +1,9 @@
-from django.views.generic import DeleteView
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from formulario.models import Alumno
 from .serializers import AlumnoSerializer
-from django.views.decorators.csrf import csrf_exempt
 
 
 class CreateAlumno(APIView):
@@ -42,17 +41,18 @@ class UpdateAlumno(APIView):
             return Response({"icon": "error", "message": "Datos incompletos"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class DeleteAlumno(DeleteView):
-    model = Alumno
-    template_name = "tabla.html"
-    success_url = Response({'message': 'Alumno eliminado'}, status=status.HTTP_200_OK)
-    error_url = Response({'error': 'Error al eliminar Alumno'}, status=status.HTTP_403_FORBIDDEN)
+class DeleteAlumno(APIView):
+    def post(self, request, *args, **kwargs):
+        id_alumno = request.data.get('id')  # Use request.data for POST data in DRF
+        try:
+            alumno = get_object_or_404(Alumno, id=id_alumno)
+            alumno.delete()
 
-    @csrf_exempt
-    def dispatch(self, request, *args, **kwargs):
-        if request.method == "POST":
-            cliente = self.model.objects.get(id=request.POST['id'])
-            cliente.delete()
-            return self.success_url
-        else:
-            return self.error_url
+            return Response({'icon': 'success', 'message': 'Alumno eliminado'}, status=status.HTTP_200_OK)
+
+        except Alumno.DoesNotExist:
+            return Response({'icon': 'error', 'error': 'Alumno no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            return Response({'icon': 'error', 'error': f'Error al eliminar alumno: {str(e)}'},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
