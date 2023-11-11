@@ -2,7 +2,8 @@ $(document).ready(function () {
     let url_relative_guardar = $("#url_relative_guardar").val()
     let hidde_csrf_token = $("#hidde_csrf_token").val()
 
-    $(".guardar_datos").on("click", function () {
+    $(".guardar_datos").on("click", function (event) {
+        event.preventDefault();  // Evita la acción predeterminada del formulario
         let data = {
             "nombre_alumno": $("#nombre_alumno").val(),
             "apellido_alumno": $("#apellido_alumno").val(),
@@ -31,11 +32,11 @@ $(document).ready(function () {
                     position: 'center',
                     icon: xhr.responseJSON.icon,
                     background: "#000",
-                    title: xhr.responseJSON.error,
+                    title: xhr.responseJSON.message,
                     showConfirmButton: false,
                     timer: 2500
                 })
-                console.log(error.responseJSON.error)
+                // console.error(xhr.responseJSON.message)
             }
         })
     })

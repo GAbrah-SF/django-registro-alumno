@@ -1,3 +1,4 @@
+**/migrations/
 test/
 .idea/
 __pycache__/

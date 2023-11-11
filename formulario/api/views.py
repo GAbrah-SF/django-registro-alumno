@@ -8,11 +8,9 @@ from .serializers import AlumnoSerializer
 
 class CreateAlumno(APIView):
     def post(self, request):
-        # Serializa los datos de entrada utilizando un AlumnoSerializer
-        serializer = AlumnoSerializer(data=request.data)
+        serializer = AlumnoSerializer(data=request.data)  # Serializa los datos de entrada
 
-        if serializer.is_valid():
-            # Guarda el objeto Alumno en la base de datos
+        if serializer.is_valid():  # Guarda el objeto a la base de datos de Alumno
             serializer.save()
 
             return Response(status=status.HTTP_200_OK,
@@ -27,8 +25,7 @@ class UpdateAlumno(APIView):
         try:
             alumno = get_object_or_404(Alumno, id=request.data.get('id'))
 
-            # Utilizar el serializer para validar y actualizar los datos
-            serializer = AlumnoSerializer(alumno, data=request.data, partial=True)
+            serializer = AlumnoSerializer(alumno, data=request.data, partial=True)  # Validar y actualizar los datos
 
             if serializer.is_valid():
                 serializer.save()
