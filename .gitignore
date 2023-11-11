@@ -1,3 +1,6 @@
 test/
 .idea/
 __pycache__/
+db.sqlite3
+**/migrations/*.py
+!**/migrations/__init__.py
