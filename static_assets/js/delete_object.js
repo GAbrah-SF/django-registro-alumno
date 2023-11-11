@@ -61,7 +61,7 @@ $(document).ready(function () {
                                 position: 'center',
                                 icon: xhr.responseJSON.icon,
                                 background: "#000",
-                                title: xhr.responseJSON.error,
+                                title: xhr.responseJSON.message,
                                 showConfirmButton: false,
                                 timer: 2500
                             })

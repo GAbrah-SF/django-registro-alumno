@@ -25,17 +25,17 @@ class CreateAlumno(APIView):
 class UpdateAlumno(APIView):
     def post(self, request):
         try:
-            alumno = Alumno.objects.get(id=request.data['update_id_alumno'])
-            alumno.nombre_alumno = request.data['update_nombre_alumno']
-            alumno.apellido_alumno = request.data['update_apellido_alumno']
-            alumno.telefono_alumno = request.data['update_telefono_alumno']
-            alumno.email_alumno = request.data['update_email_alumno']
-            alumno.save()
+            alumno = get_object_or_404(Alumno, id=request.data.get('id'))
 
-            return Response({"icon": "success", "message": "Datos actualizados correctamente"})
+            # Utilizar el serializer para validar y actualizar los datos
+            serializer = AlumnoSerializer(alumno, data=request.data, partial=True)
 
-        except Alumno.DoesNotExist:
-            return Response({"icon": "error", "message": "Alumno no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"icon": "success", "message": "Datos actualizados correctamente"})
+
+            else:
+                return Response({"icon": "error", "message": "Datos no válidos"}, status=status.HTTP_400_BAD_REQUEST)
 
         except KeyError:
             return Response({"icon": "error", "message": "Datos incompletos"}, status=status.HTTP_400_BAD_REQUEST)
@@ -43,16 +43,15 @@ class UpdateAlumno(APIView):
 
 class DeleteAlumno(APIView):
     def post(self, request, *args, **kwargs):
-        id_alumno = request.data.get('id')  # Use request.data for POST data in DRF
         try:
-            alumno = get_object_or_404(Alumno, id=id_alumno)
+            alumno = get_object_or_404(Alumno, id=request.data.get('id'))
             alumno.delete()
 
             return Response({'icon': 'success', 'message': 'Alumno eliminado'}, status=status.HTTP_200_OK)
 
         except Alumno.DoesNotExist:
-            return Response({'icon': 'error', 'error': 'Alumno no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'icon': 'error', 'message': 'Alumno no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as e:
-            return Response({'icon': 'error', 'error': f'Error al eliminar alumno: {str(e)}'},
+            return Response({'icon': 'error', 'message': f'Error al eliminar alumno: {str(e)}'},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)

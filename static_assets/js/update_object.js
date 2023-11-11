@@ -48,11 +48,11 @@ $(document).ready(function () {
 
         $(`#updateData_${id_number}`).on("click", function () {
             let data_update = {
-                "update_id_alumno": id_number,
-                "update_nombre_alumno": update_nombre_alumno.val(),
-                "update_apellido_alumno": update_apellido_alumno.val(),
-                "update_telefono_alumno": update_telefono_alumno.val(),
-                "update_email_alumno": update_email_alumno.val(),
+                "id": id_number,
+                "nombre_alumno": update_nombre_alumno.val(),
+                "apellido_alumno": update_apellido_alumno.val(),
+                "telefono_alumno": update_telefono_alumno.val(),
+                "email_alumno": update_email_alumno.val(),
                 "csrfmiddlewaretoken": hidde_csrf_token_update
             }
 
