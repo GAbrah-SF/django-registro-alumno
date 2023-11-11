@@ -1,6 +1,5 @@
 $(document).ready(function () {
     let id_update = [], id_show_nombre = [], id_show_apellido = [], id_show_telefono = [], id_show_email = []
-    let hidde_csrf_token_update = $("#hidde_csrf_token_update").val()
     let url_relative_actualizar = $("#url_relative_actualizar").val()
 
     $('.show_modal_update').each(function () {
@@ -47,21 +46,22 @@ $(document).ready(function () {
         })
 
         $(`#updateData_${id_number}`).on("click", function () {
-            let data_update = {
+            let data_update = JSON.stringify({
                 "id": id_number,
                 "nombre_alumno": update_nombre_alumno.val(),
                 "apellido_alumno": update_apellido_alumno.val(),
                 "telefono_alumno": update_telefono_alumno.val(),
                 "email_alumno": update_email_alumno.val(),
-                "csrfmiddlewaretoken": hidde_csrf_token_update
-            }
+            })
 
             // Realiza la solicitud AJAX
             $.ajax({
                 url: url_relative_actualizar,
-                type: "POST",
+                type: "PUT",
+                contentType: 'application/json',
                 data: data_update,
                 success: function (response) {
+                    // console.log('Solicitud PUT exitosa', response)
                     swal.fire({
                         position: 'center',
                         icon: response.icon,
@@ -76,6 +76,7 @@ $(document).ready(function () {
                     )
                 },
                 error: function (xhr, status, error) {
+                    // console.error('Error en la solicitud PUT', error)
                     swal.fire({
                         position: 'center',
                         icon: xhr.responseJSON.icon,

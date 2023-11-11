@@ -6,7 +6,6 @@
                 <button type="button" class="btn-close bg-danger xModal{{ alumno.id }}" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="">
-                <input type="hidden" id="hidde_csrf_token_update" value="{{ csrf_token }}">
                 <input type="hidden" id="url_relative_actualizar" value="{% url 'actualizar' %}">
                 <div class="modal-body">
                     <input type="hidden" class="form-control" id="update_id_{{ alumno.id }}" value="">
