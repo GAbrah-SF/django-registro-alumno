@@ -23,7 +23,7 @@ class CreateAlumno(APIView):
 
 
 class UpdateAlumno(APIView):
-    def post(self, request):
+    def put(self, request, *args, **kwargs):
         try:
             alumno = get_object_or_404(Alumno, id=request.data.get('id'))
 
@@ -42,7 +42,7 @@ class UpdateAlumno(APIView):
 
 
 class DeleteAlumno(APIView):
-    def post(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):
         try:
             alumno = get_object_or_404(Alumno, id=request.data.get('id'))
             alumno.delete()
